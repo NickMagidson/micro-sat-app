@@ -5,36 +5,77 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useEffect, useState } from "react";
 
+interface SatellitePosition {
+  lat: number;
+  lng: number;
+  alt: number;
+  name: string;
+  timestamp: Date;
+}
+
+// interface SingleTleProcessProps {
+//   tleLines: string[] | null;
+//   setTleLines: (lines: string[] | null) => void;
+// }
+
 interface SingleTleProcessProps {
-  tleLines: string[] | null;
-  setTleLines: (lines: string[] | null) => void;
+  onPositionCalculated?: (position: SatellitePosition) => void;
 }
 
-async function getPosition() {
-  //Mimic server-side stuff...
-  return {
-    position: {
-      lat: 39.953436,
-      lng: -75.164356
-    }
-  }
-}
+// Helper function to convert ECI to lat/lng (you'll need to implement proper conversion)
+// function eciToLatLng(x: number, y: number, z: number) {
+//   // Simplified conversion - you should use a proper library like satellite.js
+//   const r = Math.sqrt(x * x + y * y + z * z);
+//   const lat = Math.asin(z / r) * (180 / Math.PI);
+//   const lng = Math.atan2(y, x) * (180 / Math.PI);
+//   const alt = r - 6371; // Earth radius approximation
+  
+//   return { lat, lng, alt };
+// }
 
 
-export default function SingleTleProcess(FC: SingleTleProcessProps) {
+export default function SingleTleProcess({ onPositionCalculated }: SingleTleProcessProps) {
   const [tleLines, setTleLines] = useState<string[] | null>(null);
   const [sgp4Result, setSgp4Result] = useState<any>(null);
   const [fetchedPosition, setFetchedPosition] = useState<any>(null);
 
-  // Fetch position on component mount
-  useEffect(() => {
-    getPosition().then((position) => {
-      setFetchedPosition(position);
-    });
-  }, []);
+  // useEffect(() => {
+  //   if (sgp4Result?.positionAndVelocity?.position && onPositionCalculated) {
+  //     const { x, y, z } = sgp4Result.positionAndVelocity.position;
+  //     const { lat, lng, alt } = eciToLatLng(x, y, z);
+      
+  //     onPositionCalculated({
+  //       lat,
+  //       lng,
+  //       alt,
+  //       name: tleLines?.[0]?.trim() || 'Satellite',
+  //       timestamp: new Date()
+  //     });
+  //   }
+  // }, [sgp4Result, onPositionCalculated, tleLines]);
 
-  // console.log('From parent component - tleLines:', tleLines);
-  // console.log('From parent component - sgp4Result:', sgp4Result.positionAndVelocity.meanElements);
+
+  useEffect(() => {
+    if (sgp4Result?.positionAndVelocity?.position && onPositionCalculated) {
+      const { x, y, z } = sgp4Result.positionAndVelocity.position;
+      
+      // Convert ECI coordinates to lat/lng/alt
+      const r = Math.sqrt(x * x + y * y + z * z);
+      const lat = Math.asin(z / r) * (180 / Math.PI);
+      const lng = Math.atan2(y, x) * (180 / Math.PI);
+      const alt = r - 6371; // Earth radius approximation in km
+      
+      onPositionCalculated({
+        lat,
+        lng,
+        alt,
+        name: tleLines?.[0]?.trim() || 'Satellite',
+        timestamp: new Date()
+      });
+    }
+  }, [sgp4Result, onPositionCalculated, tleLines]);
+
+
 
   return (
     <>

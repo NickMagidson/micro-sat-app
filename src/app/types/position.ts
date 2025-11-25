@@ -1,5 +1,6 @@
 export type Position = {
     lat: number,
-    lng: number
+    lng: number,
+    alt?: number
   }
   

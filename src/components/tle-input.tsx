@@ -55,7 +55,7 @@ export default function TLEInput({ setTleLines, setSgp4Result }: TLEInputProps) 
               <div className="grid w-full gap-3">
                 <div className="flex items-center justify-between">
                 <Label className="text-lg" htmlFor="message">TLE Input</Label>
-                <a onClick={handleRandomTle} className="text-blue-500 hover:underline text-xs">
+                <a onClick={handleRandomTle} className="text-blue-500 hover:underline text-xs cursor-pointer">
                   Random TLE
                 </a>
                 </div>

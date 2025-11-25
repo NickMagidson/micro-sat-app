@@ -1,4 +1,5 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
@@ -39,9 +40,9 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased `}
       >
         <SidebarProvider>
-          {/* <AppSidebar /> */}
+          <AppSidebar />
           <main>
-            {/* <SidebarTrigger /> */}
+            <SidebarTrigger />
             {children}
           </main>
         </SidebarProvider>

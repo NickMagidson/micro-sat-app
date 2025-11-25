@@ -54,8 +54,9 @@ export const CesiumComponent: React.FunctionComponent<{
             //https://sandcastle.cesium.com/?src=3D%20Tiles%20Feature%20Styling.html
             const osmBuildingsTileset = await CesiumJs.createOsmBuildingsAsync();
             
-            //Clean up potentially already-existing primitives.
+            //Clean up potentially already-existing primitives and entities.
             cleanUpPrimitives();
+            cesiumViewer.current.entities.removeAll();
 
             //Adding tile and adding to addedScenePrimitives to keep track and delete in-case of a re-render.
             const osmBuildingsTilesetPrimitive = cesiumViewer.current.scene.primitives.add(osmBuildingsTileset);
@@ -67,17 +68,33 @@ export const CesiumComponent: React.FunctionComponent<{
             //We'll also add our own data here (In Philadelphia) passed down from props as an example
             positions.forEach(p => {
                 cesiumViewer.current?.entities.add({
-                    position: CesiumJs.Cartesian3.fromDegrees(p.lng, p.lat),
-                    ellipse: {
-                        semiMinorAxis: 50000.0,
-                        semiMajorAxis: 50000.0,
-                        height: 0,
-                        material: CesiumJs.Color.RED.withAlpha(0.5),
-                        outline: true,
+                    position: CesiumJs.Cartesian3.fromDegrees(p.lng, p.lat, (p.alt || 0) * 1000),
+                    point: {
+                        pixelSize: 12,
+                        color: CesiumJs.Color.CYAN,
+                        outlineColor: CesiumJs.Color.WHITE,
+                        outlineWidth: 2,
+                        heightReference: CesiumJs.HeightReference.NONE
+                    },
+                    label: {
+                        text: 'Satellite',
+                        font: '14px Helvetica',
+                        fillColor: CesiumJs.Color.WHITE,
                         outlineColor: CesiumJs.Color.BLACK,
+                        outlineWidth: 2,
+                        style: CesiumJs.LabelStyle.FILL_AND_OUTLINE,
+                        pixelOffset: new CesiumJs.Cartesian2(0, -40)
                     }
                 });
             });
+
+            // Fly to satellite position if available
+            if (positions.length > 0) {
+                const p = positions[0];
+                cesiumViewer.current.camera.flyTo({
+                    destination: CesiumJs.Cartesian3.fromDegrees(p.lng, p.lat, ((p.alt || 0) * 1000) + 2000000)
+                });
+            }
 
             //Set loaded flag
             setIsLoaded(true);
@@ -105,6 +122,13 @@ export const CesiumComponent: React.FunctionComponent<{
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    React.useEffect(() => {
+        // Reset loaded flag when positions change to trigger re-initialization
+        if (positions.length > 0) {
+            setIsLoaded(false);
+        }
+    }, [positions]);
 
     React.useEffect(() => {
         if (isLoaded) return;
