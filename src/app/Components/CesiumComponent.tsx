@@ -1,8 +1,8 @@
 'use client'
 
-import React from 'react'
-import type { CesiumType } from '../types/cesium'
 import { Cesium3DTileset, type Entity, type Viewer } from 'cesium';
+import React from 'react';
+import type { CesiumType } from '../types/cesium';
 import type { Position } from '../types/position';
 //NOTE: It is important to assign types using "import type", not "import"
 import { dateToJulianDate } from '../example_utils/date';
@@ -21,21 +21,21 @@ export const CesiumComponent: React.FunctionComponent<{
     const addedScenePrimitives = React.useRef<Cesium3DTileset[]>([]);
     const [isLoaded, setIsLoaded] = React.useState(false);
 
-    const resetCamera = React.useCallback(async () => {
-        // Set the initial camera to look at Seattle
-        // No need for dependancies since all data is static for this example.
-        if (cesiumViewer.current !== null) {
-            cesiumViewer.current.scene.camera.setView({
-                destination: CesiumJs.Cartesian3.fromDegrees(-122.3472, 47.598, 370),
-                orientation: {
-                  heading: CesiumJs.Math.toRadians(10),
-                  pitch: CesiumJs.Math.toRadians(-10),
-                },
-              });
-        }
+    // const resetCamera = React.useCallback(async () => {
+    //     // Set the initial camera to look at Seattle
+    //     // No need for dependancies since all data is static for this example.
+    //     if (cesiumViewer.current !== null) {
+    //         cesiumViewer.current.scene.camera.setView({
+    //             destination: CesiumJs.Cartesian3.fromDegrees(-122.3472, 47.598, 370),
+    //             orientation: {
+    //               heading: CesiumJs.Math.toRadians(10),
+    //               pitch: CesiumJs.Math.toRadians(-10),
+    //             },
+    //           });
+    //     }
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     const cleanUpPrimitives = React.useCallback(() => {
         //On NextJS 13.4+, React Strict Mode is on by default.
@@ -62,7 +62,7 @@ export const CesiumComponent: React.FunctionComponent<{
             addedScenePrimitives.current.push(osmBuildingsTilesetPrimitive);
             
             //Position camera per Sandcastle demo
-            resetCamera();
+            // resetCamera();
 
             //We'll also add our own data here (In Philadelphia) passed down from props as an example
             positions.forEach(p => {
@@ -122,7 +122,7 @@ export const CesiumComponent: React.FunctionComponent<{
         <div
             ref={cesiumContainerRef}
             id='cesium-container'
-            style={{height: '100vh', width: '100vw'}}
+            style={{height: '50%', width: '50%'}}
         />
     )
 }
