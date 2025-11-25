@@ -1,16 +1,23 @@
-import { Button } from "@/components/ui/button";
-import MainPage from "./main/page";
+import SingleTleProcess from "@/components/single-tle-process";
 
 export default function Home() {
-  return (
-    <main className="bg-background text-foreground">
-      <div className="p-4 text-center">
-        <h1 className="text-2xl font-bold text-primary mb-4">🎉 Tailwind CSS is installed!</h1>
-        <p className="text-muted-foreground mb-4">Ready for Shad/cn components</p>
-        <Button>Primary Button</Button>
-      </div>
+  // return (
+  //   <main className="bg-background text-foreground">
+  //     <MainPage />
+  //   </main>
+  // );
 
-      <MainPage />
-    </main>
+
+  return (
+    <>
+      <div className="app-container w-screen h-screen pt-8 space-y-4">
+
+        <SingleTleProcess />
+
+      </div>
+    </>
   );
+
+
+
 }
