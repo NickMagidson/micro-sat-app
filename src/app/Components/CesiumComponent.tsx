@@ -84,7 +84,7 @@ export const CesiumComponent: React.FunctionComponent<{
                         outlineWidth: 2,
                         style: CesiumJs.LabelStyle.FILL_AND_OUTLINE,
                         pixelOffset: new CesiumJs.Cartesian2(0, -40)
-                    }
+                    },
                 });
             });
 

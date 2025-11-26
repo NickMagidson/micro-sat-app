@@ -86,7 +86,7 @@ export default function RootLayout({
                   </div> */}
                 </div>
               </header>
-              <main className='mx-auto size-full max-w-7xl flex-1 px-4 py-6 sm:px-6'>
+              <main className='mx-auto size-full max-w-7xl flex-1 px-4 py-6 sm:px-6 lg:mx-8 lg:max-w-[98%]'>
                 {children}
               </main>
               <footer className='bg-card h-10 border-t'>
