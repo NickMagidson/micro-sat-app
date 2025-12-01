@@ -1,47 +1,36 @@
-import { ArrowRightLeftIcon, Calendar, ChartNoAxesCombinedIcon, ChartPieIcon, ChartSplineIcon, ClipboardListIcon, Clock9Icon, CrownIcon, HashIcon, Home, Inbox, Search, Settings, UsersIcon } from "lucide-react"
+'use client'
+import { ChartNoAxesCombinedIcon, ChevronDown } from "lucide-react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubItem
 } from "@/components/ui/sidebar"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
 
-// Menu items.
-const items = [
+const satelliteOperations = [
   {
-    title: "Home",
-    url: "#",
-    icon: Home,
+    title: "Single TLE Processor",
+    url: "/tle-processor",
   },
   {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
+    title: "Batch Analysis",
+    url: "/batch-analysis",
+  }
 ]
 
 export function AppSidebar() {
+const pathname = usePathname()
+
   return (
     // <Sidebar>
     //   <SidebarContent>
@@ -81,7 +70,52 @@ export function AppSidebar() {
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>
+
             <SidebarGroup>
+              {/* <SidebarGroupLabel>Management</SidebarGroupLabel> */}
+              <SidebarGroupContent>
+              <SidebarMenu>
+                <Collapsible defaultOpen className="group/collapsible">
+                <SidebarMenuItem>
+                  <CollapsibleTrigger asChild>
+                  <SidebarMenuButton>
+                    <span>Satellite Operations</span>
+                    <ChevronDown className="ml-auto transition-transform -rotate-90 group-data-[state=open]/collapsible:rotate-0" />
+                  </SidebarMenuButton>
+                  </CollapsibleTrigger>
+                  <CollapsibleContent>
+                  <SidebarMenuSub>
+                    <SidebarMenuSubItem>
+                      <SidebarMenuButton asChild isActive={pathname === "/tle-processor"} >
+                        <Link href="/tle-processor">
+                          <span>Single TLE Processor</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuSubItem>
+                    <SidebarMenuSubItem>
+                      <SidebarMenuButton asChild isActive={pathname === "/batch-analysis"}>
+                        <Link href="/batch-analysis">
+                          <span>Batch Analysis</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuSubItem>
+                    {/* <SidebarMenuSubItem>
+                      <SidebarMenuButton asChild>
+                        <a href="#">
+                          <span>Privacy Controls</span>
+                        </a>
+                      </SidebarMenuButton>
+                    </SidebarMenuSubItem> */}
+                  </SidebarMenuSub>
+                  </CollapsibleContent>
+                </SidebarMenuItem>
+                </Collapsible>
+              </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+
+
+            {/* <SidebarGroup>
               <SidebarGroupLabel>Pages</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
@@ -152,7 +186,7 @@ export function AppSidebar() {
                   </SidebarMenuItem>
                 </SidebarMenu>
               </SidebarGroupContent>
-            </SidebarGroup>
+            </SidebarGroup> */}
           </SidebarContent>
         </Sidebar>
   )
