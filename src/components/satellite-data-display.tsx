@@ -13,7 +13,7 @@ export default function SatelliteDataDisplay({ sgp4Result }: SatelliteDataDispla
 
   if (!hasData) {
     return (
-      <div className="space-y-6 h-32">
+      <div>
         <Card>
           <CardHeader>
             <CardTitle>Satellite Data</CardTitle>
@@ -33,9 +33,9 @@ export default function SatelliteDataDisplay({ sgp4Result }: SatelliteDataDispla
   }
 
   return (
-    <div className="overflow-y-auto max-h-[33rem]">
+    <div>
       {/* Position and Velocity */}
-      <Card>
+      <Card className="overflow-y-auto max-h-[33rem]">
         <CardHeader>
           <CardTitle>Position and Velocity</CardTitle>
           <CardDescription>ECI coordinate frame</CardDescription>
@@ -51,17 +51,17 @@ export default function SatelliteDataDisplay({ sgp4Result }: SatelliteDataDispla
               </TableHeader>
               <TableBody>
                 <TableRow>
-                  <TableCell className="font-medium">X</TableCell>
+                  <TableCell className="font-medium">Latitude</TableCell>
                   <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.position?.x?.toFixed(3) || 'N/A'}</TableCell>
                   <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.velocity?.x?.toFixed(6) || 'N/A'}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Y</TableCell>
+                  <TableCell className="font-medium">Longitude</TableCell>
                   <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.position?.y?.toFixed(3) || 'N/A'}</TableCell>
                   <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.velocity?.y?.toFixed(6) || 'N/A'}</TableCell>
                 </TableRow>
                 <TableRow>
-                  <TableCell className="font-medium">Z</TableCell>
+                  <TableCell className="font-medium">Altitude</TableCell>
                   <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.position?.z?.toFixed(3) || 'N/A'}</TableCell>
                   <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.velocity?.z?.toFixed(6) || 'N/A'}</TableCell>
                 </TableRow>

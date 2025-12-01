@@ -1,5 +1,5 @@
 'use client'
-import { ChartNoAxesCombinedIcon, ChevronDown } from "lucide-react"
+import { ChevronDown, Satellite } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -9,7 +9,6 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
-  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
@@ -61,11 +60,10 @@ const pathname = usePathname()
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
                       <a href='#'>
-                        <ChartNoAxesCombinedIcon />
+                        {/* <ChartNoAxesCombinedIcon /> */}
                         <span>Dashboard</span>
                       </a>
                     </SidebarMenuButton>
-                    <SidebarMenuBadge className='bg-primary/10 rounded-full'>5</SidebarMenuBadge>
                   </SidebarMenuItem>
                 </SidebarMenu>
               </SidebarGroupContent>
@@ -79,6 +77,7 @@ const pathname = usePathname()
                 <SidebarMenuItem>
                   <CollapsibleTrigger asChild>
                   <SidebarMenuButton>
+                    <Satellite size={44} color="#ffffff" strokeWidth={1.25} />
                     <span>Satellite Operations</span>
                     <ChevronDown className="ml-auto transition-transform -rotate-90 group-data-[state=open]/collapsible:rotate-0" />
                   </SidebarMenuButton>
