@@ -45,7 +45,7 @@ export default function SingleTleProcessContainer() {
   return (
 
     <>
-      <div className="mb-4">
+      <div className="mb-4 text-lg">
         <h1>Process a Single TLE</h1>
       </div>
       

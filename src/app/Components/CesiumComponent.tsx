@@ -109,7 +109,7 @@ export const CesiumComponent: React.FunctionComponent<{
             if (positions.length > 0) {
                 const p = positions[0];
                 cesiumViewer.current.camera.flyTo({
-                    destination: CesiumJs.Cartesian3.fromDegrees(p.lng, p.lat, ((p.alt || 0) * 1000) + 2000000)
+                    destination: CesiumJs.Cartesian3.fromDegrees(p.lng, p.lat, ((p.alt || 0) * 1000) + 10000000)
                 });
             }
 
@@ -135,6 +135,11 @@ export const CesiumComponent: React.FunctionComponent<{
 
             //NOTE: Example of configuring a Cesium viewer
             cesiumViewer.current.clock.clockStep = CesiumJs.ClockStep.SYSTEM_CLOCK_MULTIPLIER;
+
+            // Set zoom limits
+            cesiumViewer.current.scene.screenSpaceCameraController.minimumZoomDistance = 10000000; // 1 km
+            cesiumViewer.current.scene.screenSpaceCameraController.maximumZoomDistance = 500000000; // 200,000 km
+
         }
         
         // eslint-disable-next-line react-hooks/exhaustive-deps
