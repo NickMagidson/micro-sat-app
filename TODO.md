@@ -25,6 +25,7 @@ Navbar:
     - Single TLE
     - TLE Dataset
     - Globe
+    - Directory (tableview, search, and dynamic pages that contain info and cesium?)
   - Scheduling
     - Dashboard
     - Ground Stations

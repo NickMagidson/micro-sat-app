@@ -56,13 +56,19 @@ export default function TLEInput({ setTleLines, setSgp4Result }: TLEInputProps) 
             <CardContent>
               <div className="grid w-full gap-3">
                 <div className="flex items-center justify-between">
-                <Label className="text-lg" htmlFor="message">TLE Input</Label>
-                <a onClick={handleRandomTle} className="text-blue-500 hover:underline text-xs cursor-pointer">
-                  Random TLE
-                </a>
-                {/* <a onClick={handleClearTle} className="text-blue-500 hover:underline text-xs cursor-pointer">
-                  Clear
-                </a> */}
+                  <Label className="text-lg" htmlFor="message">TLE Input</Label>
+
+
+                  <div className="flex space-x-4">
+                    <a onClick={handleRandomTle} className="text-blue-500 hover:underline text-xs cursor-pointer">
+                      Random TLE
+                    </a>
+                    <a onClick={handleClearTle} className="text-blue-500 hover:underline text-xs cursor-pointer">
+                      Clear
+                    </a>
+                  </div>
+
+
                 </div>
                 <Textarea ref={textareaRef} placeholder="Paste TLE here..." id="message" />
                 <Button onClick={handleTleInput}>Propagate</Button>
