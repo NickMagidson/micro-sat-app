@@ -12,7 +12,7 @@
 - Transform SGP4 to GCRF rotation frame since sgp4 outputs TEME by default
 - Add time control and animation. `sgp4(satrec, 0)` second parameter to be adjustable via slider?
 - CesiumComponent
-  - Change zoom on satellite flyTo
+  - Change zoom on satellite flyTox
   - Add maximum zoom to globe
   - Better colors for the orbit line and entity
 

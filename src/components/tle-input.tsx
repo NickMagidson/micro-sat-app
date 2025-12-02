@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { sampleTles } from "@/lib/sampleData";
+import { useRef } from "react";
 import { Button } from "./ui/button";
 
 interface TLEInputProps {
@@ -16,19 +17,15 @@ interface TLEInputProps {
 
 
 export default function TLEInput({ setTleLines, setSgp4Result }: TLEInputProps) {
+    const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   function handleTleInput() {
-    const textarea = document.getElementById('message') as HTMLTextAreaElement;
-    const tleInput = textarea?.value || '';
+    const tleInput = textareaRef.current?.value || '';
     const [line0, line1, line2] = tleInput.split('\n');
 
     // Process the TLE lines as needed
     setTleLines([line0, line1, line2]);
 
-    // console.log('Processing TLE lines:');
-    // console.log('Line 0:', line0);
-    // console.log('Line 1:', line1);
-    // console.log('Line 2:', line2);
   
     const result = sgp4FromTle({ line1, line2 });
     setSgp4Result(result);
@@ -38,9 +35,14 @@ export default function TLEInput({ setTleLines, setSgp4Result }: TLEInputProps) 
 
   const handleRandomTle = () => {
     const randomTle = sampleTles[Math.floor(Math.random() * sampleTles.length)];
-    const textarea = document.getElementById('message') as HTMLTextAreaElement;
-    if (textarea) {
-      textarea.value = randomTle;
+    if (textareaRef.current) {
+      textareaRef.current.value = randomTle;
+    }
+  }
+
+  const handleClearTle = () => {
+    if (textareaRef.current) {
+      textareaRef.current.value = '';
     }
   }
 
@@ -58,8 +60,11 @@ export default function TLEInput({ setTleLines, setSgp4Result }: TLEInputProps) 
                 <a onClick={handleRandomTle} className="text-blue-500 hover:underline text-xs cursor-pointer">
                   Random TLE
                 </a>
+                {/* <a onClick={handleClearTle} className="text-blue-500 hover:underline text-xs cursor-pointer">
+                  Clear
+                </a> */}
                 </div>
-                <Textarea placeholder="Paste TLE here..." id="message" />
+                <Textarea ref={textareaRef} placeholder="Paste TLE here..." id="message" />
                 <Button onClick={handleTleInput}>Propagate</Button>
               </div>
             </CardContent>
