@@ -9,6 +9,7 @@ interface SatellitePosition {
   alt: number;
   name: string;
   timestamp: Date;
+  orbitPath: any[];
 }
 
 interface SingleTleProcessProps {
@@ -35,7 +36,8 @@ export default function SingleTleProcess({ onPositionCalculated }: SingleTleProc
         lng,
         alt,
         name: tleLines?.[0]?.trim() || 'Satellite',
-        timestamp: new Date()
+        timestamp: new Date(),
+        orbitPath: sgp4Result.orbitPath || []
       }, sgp4Result);
     }
   }, [sgp4Result, onPositionCalculated, tleLines]);
@@ -44,7 +46,7 @@ export default function SingleTleProcess({ onPositionCalculated }: SingleTleProc
 
   return (
     <>
-    <div className="w-full max-w-2xl mx-auto">
+    <div className="w-full max-w-2xl mx-auto 2xl:mr-auto 2xl:ml-0">
         <TLEInput
           // tleLines={tleLines}
           setTleLines={setTleLines}

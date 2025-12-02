@@ -43,21 +43,32 @@ export default function SingleTleProcessContainer() {
   const hasPositions = satellitePositions.length > 0;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-full w-full p-4">
-      {/* Left side - TLE Input and Results */}
-      <div className="flex flex-col space-y-4">
-        <SingleTleProcess onPositionCalculated={handleSatellitePosition} />
-        <SatelliteDataDisplay sgp4Result={sgp4Data} />
+
+    <>
+      <div className="mb-4">
+        <h1>Process a Single TLE</h1>
       </div>
       
-      {/* Right side - Cesium Globe or Blank State */}
-      <div className="h-[48rem] lg:max-w-[100%]">
-        {hasPositions ? (
-          <CesiumWrapper positions={satellitePositions} />
-        ) : (
-          <CesiumBlankState />
-        )}
-      </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+
+        {/* Left side - TLE Input and Results */}
+        <div className="flex flex-col space-y-4">
+          <SingleTleProcess onPositionCalculated={handleSatellitePosition} />
+          <SatelliteDataDisplay sgp4Result={sgp4Data} />
+        </div>
+        
+        {/* Right side - Cesium Globe or Blank State */}
+        <div className="lg:max-w-[100%]">
+          {hasPositions ? (
+            <CesiumWrapper positions={satellitePositions} />
+          ) : (
+            <CesiumBlankState />
+          )}
+        </div>
     </div>
+  </>
+
+
+
   );
 }

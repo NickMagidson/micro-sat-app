@@ -59,7 +59,7 @@ const pathname = usePathname()
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton asChild>
-                      <a href='#'>
+                      <a href='/'>
                         {/* <ChartNoAxesCombinedIcon /> */}
                         <span>Dashboard</span>
                       </a>

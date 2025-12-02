@@ -60,7 +60,7 @@ export default function TLEInput({ setTleLines, setSgp4Result }: TLEInputProps) 
                 </a>
                 </div>
                 <Textarea placeholder="Paste TLE here..." id="message" />
-                <Button onClick={handleTleInput}>Process TLE</Button>
+                <Button onClick={handleTleInput}>Propagate</Button>
               </div>
             </CardContent>
           </Card>

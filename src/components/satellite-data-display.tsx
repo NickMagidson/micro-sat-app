@@ -35,7 +35,7 @@ export default function SatelliteDataDisplay({ sgp4Result }: SatelliteDataDispla
   return (
     <div>
       {/* Position and Velocity */}
-      <Card className="overflow-y-auto max-h-[33rem]">
+      <Card className="overflow-y-auto h-[25rem]">
         <CardHeader>
           <CardTitle>Position and Velocity</CardTitle>
           <CardDescription>ECI coordinate frame</CardDescription>

@@ -76,16 +76,33 @@ export const CesiumComponent: React.FunctionComponent<{
                         outlineWidth: 2,
                         heightReference: CesiumJs.HeightReference.NONE
                     },
-                    label: {
-                        text: 'Satellite',
-                        font: '14px Helvetica',
-                        fillColor: CesiumJs.Color.WHITE,
-                        outlineColor: CesiumJs.Color.BLACK,
-                        outlineWidth: 2,
-                        style: CesiumJs.LabelStyle.FILL_AND_OUTLINE,
-                        pixelOffset: new CesiumJs.Cartesian2(0, -40)
-                    },
+                    // label: {
+                    //     text: 'Satellite',
+                    //     font: '14px Helvetica',
+                    //     fillColor: CesiumJs.Color.WHITE,
+                    //     outlineColor: CesiumJs.Color.BLACK,
+                    //     outlineWidth: 2,
+                    //     style: CesiumJs.LabelStyle.FILL_AND_OUTLINE,
+                    //     pixelOffset: new CesiumJs.Cartesian2(0, -40)
+                    // },
                 });
+
+                            // Add orbit path if available
+            if (p.orbitPath && p.orbitPath.length > 0) {
+                const orbitPositions = p.orbitPath.map(pathPoint => 
+                    CesiumJs.Cartesian3.fromDegrees(pathPoint.lng, pathPoint.lat, pathPoint.alt * 1000)
+                );
+
+                cesiumViewer.current?.entities.add({
+                    polyline: {
+                        positions: orbitPositions,
+                        width: 2,
+                        material: CesiumJs.Color.YELLOW.withAlpha(0.8),
+                        clampToGround: false,
+                        // followSurface: false
+                    }
+                });
+            }
             });
 
             // Fly to satellite position if available

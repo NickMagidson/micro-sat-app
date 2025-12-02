@@ -142,6 +142,7 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  /* overflow-y: hidden; */
 }
 
 /* Cesium overrides */
@@ -166,6 +167,12 @@ body {
 #cesium-container .cesium-viewer {
   position: relative !important;
 } 
+
+/* Hide Cesium toolbar and fullscreen button */
+.cesium-viewer-toolbar,
+.cesium-viewer-fullscreenContainer {
+  display: none !important;
+}
 
 /* Legacy body styles for compatibility */
 
