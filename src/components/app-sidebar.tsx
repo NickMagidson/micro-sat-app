@@ -52,7 +52,7 @@ const pathname = usePathname()
     //     </SidebarGroup>
     //   </SidebarContent>
     // </Sidebar>
-        <Sidebar>
+        <Sidebar className="z-30">
           <SidebarContent>
             <SidebarGroup>
               <SidebarGroupContent>

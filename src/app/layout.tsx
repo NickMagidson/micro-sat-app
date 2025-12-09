@@ -44,7 +44,7 @@ export default function RootLayout({
           <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-              <header className='bg-card fixed top-0 left-0 right-0 z-8 border-b'>
+              <header className='bg-card fixed top-0 left-0 right-0 z-20 border-b'>
                 <div className=' flex max-w-7xl items-center justify-between gap-6 px-4 py-2 sm:px-6 ml-[var(--sidebar-width)] group-data-[state=collapsed]:ml-[var(--sidebar-width-icon)]'>
                   <div className='flex items-center gap-4'>
                     <SidebarTrigger className='[&_svg]:!size-5' />

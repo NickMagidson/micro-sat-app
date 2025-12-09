@@ -137,7 +137,7 @@ export const CesiumComponent: React.FunctionComponent<{
             cesiumViewer.current.clock.clockStep = CesiumJs.ClockStep.SYSTEM_CLOCK_MULTIPLIER;
 
             // Set zoom limits
-            cesiumViewer.current.scene.screenSpaceCameraController.minimumZoomDistance = 10000000; // 1 km
+            cesiumViewer.current.scene.screenSpaceCameraController.minimumZoomDistance = 100000; // 1 km
             cesiumViewer.current.scene.screenSpaceCameraController.maximumZoomDistance = 500000000; // 200,000 km
 
         }

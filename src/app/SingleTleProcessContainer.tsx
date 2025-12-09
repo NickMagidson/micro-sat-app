@@ -49,7 +49,7 @@ export default function SingleTleProcessContainer() {
         <h1>Process a Single TLE</h1>
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full h-[93%]">
 
         {/* Left side - TLE Input and Results */}
         <div className="flex flex-col space-y-4">
