@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 import { Separator } from '@radix-ui/react-separator';
 
 interface SatelliteDataDisplayProps {
@@ -16,13 +16,13 @@ export default function SatelliteDataDisplay({ sgp4Result }: SatelliteDataDispla
       <Card className='h-full'>
         <CardHeader>
           <CardTitle>Satellite Data</CardTitle>
-          <CardDescription>Position, velocity, and orbital elements</CardDescription>
+          <CardDescription>Satellite information and orbital elements</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-center h-64 text-muted-foreground">
             <div className="text-center">
               <p className="text-lg mb-2">No satellite data available</p>
-              <p className="text-sm">Please paste a TLE to see position, velocity, and orbital elements</p>
+              <p className="text-sm">Please paste a TLE to see satellite information and orbital elements</p>
             </div>
           </div>
         </CardContent>
@@ -34,87 +34,86 @@ export default function SatelliteDataDisplay({ sgp4Result }: SatelliteDataDispla
     <Card className="overflow-y-auto h-[33rem]">
       <CardHeader>
         <CardTitle>Satellite Data</CardTitle>
-        <CardDescription>Position, velocity, and orbital elements</CardDescription>
+        <CardDescription>Satellite information and orbital elements</CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold mb-2">Position and Velocity</h3>
-          <p className="text-sm text-muted-foreground mb-4">ECI coordinate frame</p>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Component</TableHead>
-                <TableHead>Position (km)</TableHead>
-                <TableHead>Velocity (km/s)</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">Latitude</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.position?.x?.toFixed(3) || 'N/A'}</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.velocity?.x?.toFixed(6) || 'N/A'}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Longitude</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.position?.y?.toFixed(3) || 'N/A'}</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.velocity?.y?.toFixed(6) || 'N/A'}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Altitude</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.position?.z?.toFixed(3) || 'N/A'}</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.velocity?.z?.toFixed(6) || 'N/A'}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+        <Table>
+          <TableBody>
+            {/* Basic Satellite Information */}
+            <TableRow>
+              <TableCell className="font-medium">Satellite Name</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.satelliteName || 'Unknown'}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">NORAD ID</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.noradId || 'N/A'}</TableCell>
+            </TableRow>
+            
+            <TableRow><TableCell colSpan={2}><Separator className="my-2" /></TableCell></TableRow>
+            
+            {/* Position Data */}
+            <TableRow>
+              <TableCell className="font-medium">Latitude</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.latitude?.toFixed(4) || 'N/A'}°</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Longitude</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.longitude?.toFixed(4) || 'N/A'}°</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Altitude</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.altitude?.toFixed(2) || 'N/A'} km</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Speed</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.speed?.toFixed(3) || 'N/A'} km/s</TableCell>
+            </TableRow>
 
-        <Separator className="my-6" />
+            <TableRow><TableCell colSpan={2}><Separator className="my-2" /></TableCell></TableRow>
 
-        <div>
-          <h3 className="text-lg font-semibold mb-2">Satellite Orbit Elements</h3>
-          <p className="text-sm text-muted-foreground mb-4">Mean elements as evolved at propagation date</p>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Element</TableHead>
-                <TableHead>Symbol</TableHead>
-                <TableHead>Value</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell className="font-medium">Semi-major axis</TableCell>
-                <TableCell className="font-mono text-sm">am</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.meanElements?.am?.toFixed(6) || 'N/A'}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Eccentricity</TableCell>
-                <TableCell className="font-mono text-sm">em</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.meanElements?.em?.toFixed(6) || 'N/A'}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Inclination</TableCell>
-                <TableCell className="font-mono text-sm">im</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.meanElements?.im?.toFixed(6) || 'N/A'}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Right ascension of ascending node</TableCell>
-                <TableCell className="font-mono text-sm">Om</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.meanElements?.Om?.toFixed(6) || 'N/A'}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Argument of perigee</TableCell>
-                <TableCell className="font-mono text-sm">om</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.meanElements?.om?.toFixed(6) || 'N/A'}</TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell className="font-medium">Mean motion</TableCell>
-                <TableCell className="font-mono text-sm">nm</TableCell>
-                <TableCell className="font-mono text-sm">{sgp4Result.positionAndVelocity?.meanElements?.nm?.toFixed(6) || 'N/A'}</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+            {/* Orbital Elements */}
+            <TableRow>
+              <TableCell className="font-medium">Semi-major Axis</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.semiMajorAxis?.toFixed(2) || 'N/A'} km</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Eccentricity</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.eccentricity?.toFixed(6) || 'N/A'}</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Inclination</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.inclination?.toFixed(4) || 'N/A'}°</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">RAAN</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.raan?.toFixed(4) || 'N/A'}°</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Argument of Perigee</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.argOfPerigee?.toFixed(4) || 'N/A'}°</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Mean Anomaly</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.meanAnomaly?.toFixed(4) || 'N/A'}°</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Apogee</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.apogee?.toFixed(2) || 'N/A'} km</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Perigee</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.perigee?.toFixed(2) || 'N/A'} km</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Orbital Period</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.orbitalPeriod?.toFixed(2) || 'N/A'} minutes</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell className="font-medium">Mean Motion</TableCell>
+              <TableCell className="font-mono text-sm">{sgp4Result.orbitalElements?.meanMotion?.toFixed(6) || 'N/A'} rev/day</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </CardContent>
     </Card>
   );

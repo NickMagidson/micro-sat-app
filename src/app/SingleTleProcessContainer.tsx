@@ -10,7 +10,11 @@ interface SatellitePosition {
   lng: number;
   alt?: number;
   name?: string;
-  timestamp?: Date;
+  timestamp: Date;
+}
+
+interface SingleTleProcessContainerProps {
+  currentEpoch?: Date;
 }
 
 // Blank state component for better organization
@@ -28,7 +32,7 @@ const CesiumBlankState = () => (
   </div>
 );
 
-export default function SingleTleProcessContainer() {
+export default function SingleTleProcessContainer({ currentEpoch }: SingleTleProcessContainerProps) {
   const [satellitePositions, setSatellitePositions] = useState<SatellitePosition[]>([]);
   const [sgp4Data, setSgp4Data] = useState<any>(null); // Add this state
 
@@ -47,13 +51,14 @@ export default function SingleTleProcessContainer() {
     <>
       <div className="mb-4 text-lg">
         <h1>Process a Single TLE</h1>
+        {/* <p className="text-sm text-gray-600">Current Epoch: {currentEpoch?.toISOString() || 'Not set'}</p> */}
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full h-[93%]">
 
         {/* Left side - TLE Input and Results */}
         <div className="flex flex-col space-y-4">
-          <SingleTleProcess onPositionCalculated={handleSatellitePosition} />
+          <SingleTleProcess onPositionCalculated={handleSatellitePosition} currentEpoch={currentEpoch} />
           <SatelliteDataDisplay sgp4Result={sgp4Data} />
         </div>
         

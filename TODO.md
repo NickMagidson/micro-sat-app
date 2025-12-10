@@ -9,6 +9,9 @@
 - Hook up backend (supabase/postgres)
 - Globe view (With directory)
 - About page
+- NORAD ID from TLE on table-data
+- Single: Option to choose different input
+- Single: As a user, I should be able to read and access my history of processed TLEs. On click, see that state? Then auth.
 
 
 1. Single TLE Page
@@ -17,17 +20,17 @@
 ~~- Add clear button to Input component~~
 ~~- Change zoom on satellite flyTo~~
 ~~- Add maximum zoom to globe~~
-- Adjust Z-index for sidebar and header. Cesium is too high ****
-- Transform SGP4 to GCRF rotation frame since sgp4 outputs TEME by default
-- Re evaluate the data displayed on the table
+~~- Adjust Z-index for sidebar and header. Cesium is too high~~
+~~- Re evaluate the data displayed on the table~~
+  ~~- lat, lon, etc needs to be accurate.~~
+  ~~- Also put units next to the strings. Not their own column~~
 - Better colors for the orbit line and entity on globe
-- Add time control and animation. `sgp4(satrec, 0)` second parameter to be adjustable via slider?
+- Transform SGP4 to GCRF rotation frame since sgp4 outputs TEME by default
+- Add time control and animation. `sgp4(satrec, 0)` second parameter to be adjustable via slider (inside Cesium box)
+- Have table data change live with play
 - Add button to clear the full state of every component
 
 
-
-- Option to choose different input
-- As a user, I should be able to read and access my history of processed TLEs. On click, see that state? Then auth.
 
 
 Bonus: A component for TLE output and viz. The dev just needs to pass a tle as props

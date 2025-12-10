@@ -12,11 +12,12 @@ interface TLEInputProps {
   setTleLines: (lines: string[]) => void;
   // tleLines: string[];
   setSgp4Result: (result: any) => void;
+  currentEpoch?: Date;
 }
 
 
 
-export default function TLEInput({ setTleLines, setSgp4Result }: TLEInputProps) {
+export default function TLEInput({ setTleLines, setSgp4Result, currentEpoch }: TLEInputProps) {
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   function handleTleInput() {
@@ -26,10 +27,18 @@ export default function TLEInput({ setTleLines, setSgp4Result }: TLEInputProps) 
     // Process the TLE lines as needed
     setTleLines([line0, line1, line2]);
 
-  
-    const result = sgp4FromTle({ line1, line2 });
-    setSgp4Result(result);
-    console.log('SGP4 Result:', result);
+    try {
+      const result = sgp4FromTle({ line0, line1, line2, epochTime: currentEpoch });
+      setSgp4Result(result);
+      console.log('SGP4 Result:', result);
+      console.log('Epoch used:', result.epochUsed.toISOString());
+      console.log('Time offset (minutes):', result.timeOffset);
+      console.log('Latitude:', result.latitude);
+      console.log('Longitude:', result.longitude);
+      console.log('Altitude:', result.altitude, 'km');
+    } catch (error) {
+      console.error('SGP4 calculation error:', error);
+    }
   }
 
 
@@ -72,6 +81,10 @@ export default function TLEInput({ setTleLines, setSgp4Result }: TLEInputProps) 
                 </div>
                 <Textarea ref={textareaRef} placeholder="Paste TLE here..." id="message" />
                 <Button onClick={handleTleInput}>Propagate</Button>
+                <div className="text-sm text-gray-600 space-y-1">
+                  <p>Epoch: {currentEpoch?.toISOString() || 'Current time'}</p>
+                  {/* <p>Note: Positions calculated for current time, not TLE epoch</p> */}
+                </div>
               </div>
             </CardContent>
           </Card>
