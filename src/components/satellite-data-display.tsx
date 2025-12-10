@@ -33,7 +33,10 @@ export default function SatelliteDataDisplay({ sgp4Result }: SatelliteDataDispla
   return (
     <Card className="overflow-y-auto h-[30rem]">
       <CardHeader>
-        <CardTitle>Satellite Data</CardTitle>
+        <CardTitle>
+          {sgp4Result.satelliteName},
+          <span className="text-md font-normal ml-2">{sgp4Result.noradId}</span>
+        </CardTitle>
         <CardDescription>Satellite information and orbital elements</CardDescription>
       </CardHeader>
       <CardContent>

@@ -115,7 +115,7 @@ function sgp4FromTle({ line0, line1, line2, epochTime }: TleProps) {
       z: positionAndVelocity.position.z
     },
     // TLE data
-    satelliteName: line0?.trim() || 'Unknown Satellite',
+    satelliteName: line0?.trim().replace(/^0\s+/, '') || 'Unknown Satellite',
     noradId: satrec.satnum
   };
 }
