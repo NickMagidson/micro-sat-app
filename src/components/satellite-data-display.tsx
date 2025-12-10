@@ -13,7 +13,7 @@ export default function SatelliteDataDisplay({ sgp4Result }: SatelliteDataDispla
 
   if (!hasData) {
     return (
-      <Card className='h-full'>
+      <Card className='h-full h-[30rem]'>
         <CardHeader>
           <CardTitle>Satellite Data</CardTitle>
           <CardDescription>Satellite information and orbital elements</CardDescription>
@@ -31,7 +31,7 @@ export default function SatelliteDataDisplay({ sgp4Result }: SatelliteDataDispla
   }
 
   return (
-    <Card className="overflow-y-auto h-[33rem]">
+    <Card className="overflow-y-auto h-[30rem]">
       <CardHeader>
         <CardTitle>Satellite Data</CardTitle>
         <CardDescription>Satellite information and orbital elements</CardDescription>

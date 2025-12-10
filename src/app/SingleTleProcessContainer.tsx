@@ -54,7 +54,7 @@ export default function SingleTleProcessContainer({ currentEpoch }: SingleTlePro
         {/* <p className="text-sm text-gray-600">Current Epoch: {currentEpoch?.toISOString() || 'Not set'}</p> */}
       </div>
       
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full h-[93%]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
 
         {/* Left side - TLE Input and Results */}
         <div className="flex flex-col space-y-4">

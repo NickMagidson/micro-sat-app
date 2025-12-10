@@ -29,6 +29,7 @@
 - Add time control and animation. `sgp4(satrec, 0)` second parameter to be adjustable via slider (inside Cesium box)
 - Have table data change live with play
 - Add button to clear the full state of every component
+- Live changing Epoch
 
 
 
